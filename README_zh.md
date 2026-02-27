@@ -68,56 +68,50 @@ Agent Discipline 指的是你的 AI 程式碼助手**持續遵循架構規則** 
 
 ```mermaid
 block-beta
-  columns 1
+  columns 5
 
-  block:map["00 架構師決策流程 — 從這裡開始"]
-    columns 1
-  end
+  s00["00 架構師決策流程 — 從這裡開始"]:5
+  space:5
+  s01["01\n模組與\n命名空間"]
+  s02["02\n物件建立\nFactory · Builder\nSingleton"]
+  s03["03\n共享工具與\n函數式核心"]
+  s04["04\nIO 與基礎設施\nAdapter"]
+  s05["05\n橫切關注點"]
+  space:5
+  s06["06 依賴注入與 IoC 容器 — 關鍵石"]:5
+  space:5
+  s07["07\n元件間通訊\nObserver · Mediator"]
+  s08["08\n狀態與\n業務邏輯"]
+  s09["09\nMVC / MVP\nMVVM"]
+  s10["10\n非同步與韌性"]
+  s11["11\n測試策略"]
+  space:5
+  s12["12 團隊與框架整合 — 頂石"]:5
 
-  space
+  s00 --> s01
+  s00 --> s02
+  s00 --> s03
+  s00 --> s04
+  s00 --> s05
+  s01 --> s06
+  s02 --> s06
+  s03 --> s06
+  s04 --> s06
+  s05 --> s06
+  s06 --> s07
+  s06 --> s08
+  s06 --> s09
+  s06 --> s10
+  s06 --> s11
+  s07 --> s12
+  s08 --> s12
+  s09 --> s12
+  s10 --> s12
+  s11 --> s12
 
-  block:foundation["基礎層（可任意順序閱讀）"]
-    columns 5
-    s01["01\n模組與\n命名空間"]
-    s02["02\n物件建立\nFactory · Builder\nSingleton"]
-    s03["03\n共享工具與\n函數式核心"]
-    s04["04\nIO 與基礎設施\nAdapter"]
-    s05["05\n橫切關注點"]
-  end
-
-  space
-
-  block:keystone["06 依賴注入與 IoC 容器 — 關鍵石：串連 01‑05"]
-    columns 1
-  end
-
-  space
-
-  block:application["應用層（可任意順序閱讀）"]
-    columns 5
-    s07["07\n元件間通訊"]
-    s08["08\n狀態與\n業務邏輯"]
-    s09["09\nMVC / MVP\nMVVM"]
-    s10["10\n非同步與韌性"]
-    s11["11\n測試策略"]
-  end
-
-  space
-
-  block:capstone["12 團隊與框架整合 — 頂石"]
-    columns 1
-  end
-
-  map --> foundation
-  foundation --> keystone
-  keystone --> application
-  application --> capstone
-
-  style map fill:#1e3a5f,stroke:#3b82f6,color:#e2e8f0
-  style foundation fill:#1a3a2e,stroke:#22c55e,color:#e2e8f0
-  style keystone fill:#3b1f6e,stroke:#8b5cf6,color:#e2e8f0
-  style application fill:#1a3a2e,stroke:#22c55e,color:#e2e8f0
-  style capstone fill:#5c3d1a,stroke:#f59e0b,color:#e2e8f0
+  style s00 fill:#7c3aed,color:#fff,stroke:#7c3aed
+  style s06 fill:#7c3aed,color:#fff,stroke:#7c3aed
+  style s12 fill:#7c3aed,color:#fff,stroke:#7c3aed
 ```
 
 每個 skill 檔案包含：

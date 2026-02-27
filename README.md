@@ -68,56 +68,50 @@ The 13 skill files in this repo are that guide.
 
 ```mermaid
 block-beta
-  columns 1
+  columns 5
 
-  block:map["00 Architect's Decision Flow — Start here"]
-    columns 1
-  end
+  s00["00 Architect's Decision Flow — Start here"]:5
+  space:5
+  s01["01\nModules &\nNamespaces"]
+  s02["02\nObject Creation\nFactory · Builder\nSingleton"]
+  s03["03\nShared Utilities\n& Functional Core"]
+  s04["04\nIO & Infra\nAdapters"]
+  s05["05\nCross-Cutting\nConcerns"]
+  space:5
+  s06["06 Dependency Injection & IoC — Keystone"]:5
+  space:5
+  s07["07\nCommunication\nObserver · Mediator"]
+  s08["08\nState &\nBusiness Logic"]
+  s09["09\nMVC / MVP\nMVVM"]
+  s10["10\nAsync &\nResilience"]
+  s11["11\nTesting\nStrategy"]
+  space:5
+  s12["12 Team & Framework Integration — Capstone"]:5
 
-  space
+  s00 --> s01
+  s00 --> s02
+  s00 --> s03
+  s00 --> s04
+  s00 --> s05
+  s01 --> s06
+  s02 --> s06
+  s03 --> s06
+  s04 --> s06
+  s05 --> s06
+  s06 --> s07
+  s06 --> s08
+  s06 --> s09
+  s06 --> s10
+  s06 --> s11
+  s07 --> s12
+  s08 --> s12
+  s09 --> s12
+  s10 --> s12
+  s11 --> s12
 
-  block:foundation["Foundation Layers (read in any order)"]
-    columns 5
-    s01["01\nModules &\nNamespaces"]
-    s02["02\nObject Creation\nFactory · Builder\nSingleton"]
-    s03["03\nShared Utilities\n& Functional Core"]
-    s04["04\nIO & Infra\nAdapters"]
-    s05["05\nCross-Cutting\nConcerns"]
-  end
-
-  space
-
-  block:keystone["06 Dependency Injection & IoC — Keystone: ties 01‑05 together"]
-    columns 1
-  end
-
-  space
-
-  block:application["Application Layers (read in any order)"]
-    columns 5
-    s07["07\nInter-Component\nCommunication"]
-    s08["08\nState &\nBusiness Logic"]
-    s09["09\nMVC / MVP\nMVVM"]
-    s10["10\nAsync &\nResilience"]
-    s11["11\nTesting\nStrategy"]
-  end
-
-  space
-
-  block:capstone["12 Team & Framework Integration — Capstone"]
-    columns 1
-  end
-
-  map --> foundation
-  foundation --> keystone
-  keystone --> application
-  application --> capstone
-
-  style map fill:#1e3a5f,stroke:#3b82f6,color:#e2e8f0
-  style foundation fill:#1a3a2e,stroke:#22c55e,color:#e2e8f0
-  style keystone fill:#3b1f6e,stroke:#8b5cf6,color:#e2e8f0
-  style application fill:#1a3a2e,stroke:#22c55e,color:#e2e8f0
-  style capstone fill:#5c3d1a,stroke:#f59e0b,color:#e2e8f0
+  style s00 fill:#7c3aed,color:#fff,stroke:#7c3aed
+  style s06 fill:#7c3aed,color:#fff,stroke:#7c3aed
+  style s12 fill:#7c3aed,color:#fff,stroke:#7c3aed
 ```
 
 Each skill file includes:
