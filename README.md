@@ -1,133 +1,209 @@
-# Learning JavaScript Design Patterns
+<p align="center">
+  <img src="banner.svg" alt="Design Patterns for AI Agents" width="100%"/>
+</p>
 
-一套以**分層架構**組織的 JavaScript / TypeScript 設計模式教學系列，從模組基礎到團隊協作共 13 份 SKILL.MD，涵蓋 GoF 經典模式與現代前後端實務。
+<p align="center">
+  <strong>Teach your AI Agent to write code that lasts — without slowing it down.</strong>
+</p>
 
-## 目錄結構
+<p align="center">
+  <a href="README_zh.md">繁體中文</a> · <a href="README_de.md">Deutsch</a> · <a href="README_ja.md">日本語</a> · <a href="README_ko.md">한국어</a>
+</p>
+
+---
+
+## The Problem Nobody Talks About
+
+AI-assisted coding is fast. Unbelievably fast. But speed without structure creates a hidden cost:
+
+> *"The code works, but nobody can maintain it — not even the AI that wrote it."*
+
+An AI Agent without design pattern guidance will produce code that **compiles and passes tests** but quietly accumulates technical debt: tightly coupled modules, scattered business logic, duplicated patterns, and inconsistent abstractions. Six months later, you're paying for that speed with interest — in debugging time, token costs, and rewrite cycles.
+
+**"Just rewrite it"** is the most expensive sentence in software engineering. It was expensive with human developers. It's still expensive with AI — you're just paying in tokens instead of salaries.
+
+## Why Design Patterns Matter More in the AI Era
+
+### The Paradox of AI Speed
+
+Traditional developers learn design patterns through years of painful experience — spaghetti code, failed refactors, production outages. That pain is a teacher. AI Agents skip the pain entirely, which means **they also skip the lessons**.
+
+Without explicit guidance, an AI Agent will:
+- Create a new database connection in every function instead of using a **Singleton** pool
+- Hard-code API calls deep inside business logic instead of isolating them behind an **Adapter**
+- Pass configuration through 8 layers of function parameters instead of using **Dependency Injection**
+- Scatter event handling across 20 files instead of centralizing it with an **Observer** or **Mediator**
+
+Each of these "works." Each of these is a future bug waiting to happen.
+
+### The Token Economy Argument
+
+Here's something vibe coders rarely consider: **design patterns directly reduce token consumption**.
+
+| Scenario | Without Patterns | With Patterns |
+|----------|-----------------|---------------|
+| "Add Stripe payment" | Agent reads 30 files to find where payment logic should go | Agent reads the Adapter layer — 3 files |
+| "Change from MySQL to PostgreSQL" | Agent rewrites 15 files where SQL is scattered | Agent changes 1 Adapter. Done. |
+| "Add logging to all API calls" | Agent modifies every endpoint, one by one | Agent adds a Decorator/AOP middleware. 1 file. |
+| "Debug why orders fail on weekends" | Agent traces spaghetti code for 50+ turns | Agent checks the State Pattern — finds invalid transition in 2 turns |
+
+Structured code means the Agent **reads less, touches less, and gets it right in fewer iterations**. Fewer iterations = fewer tokens = lower cost. This isn't theory — it's arithmetic.
+
+### Agent Discipline: The Missing Concept
+
+We talk a lot about "AI alignment." But there's a more practical version of it for software engineering: **Agent Discipline**.
+
+Agent Discipline means your AI coding assistant consistently follows architectural rules — not because it "understands" them the way a senior engineer does, but because you've **explicitly defined the patterns** it should use.
+
+Think of it like this:
+
+- **Without discipline:** You give the Agent a task. It writes something that works. Each time differently. Technical debt quietly grows.
+- **With discipline:** You give the Agent a task *plus a design pattern guide*. It writes something that works **and fits into the existing architecture**. Every time. Consistently.
+
+The 13 skill files in this repo are that guide.
+
+## What's Inside
+
+13 structured skill files organized as a **layered architecture** — from foundation to team integration:
 
 ```
 skills/
-├── 00-overview-architect-decision-flow.md   # 全局地圖：分層架構 & 閱讀順序
-├── 01-foundation-modules-and-namespaces.md  # 模組、命名空間、專案佈局
-├── 02-object-creation-layer.md              # Factory, Builder, Singleton, Prototype
-├── 03-shared-utilities-and-functional-core.md # Filter, Accumulator, Immutable
-├── 04-io-and-infrastructure-adapters.md     # Adapter, Facade, Proxy
-├── 05-cross-cutting-concerns-aop-and-decorators.md # Decorator, AOP, Middleware
-├── 06-dependency-injection-and-ioc-container.md    # DI / IoC 容器
-├── 07-inter-component-communication.md      # Observer, Mediator, PubSub, Command
-├── 08-state-management-and-business-logic.md # State, Memento, Visitor, Template
-├── 09-application-layer-mvc-mvp-mvvm.md     # MVC / MVP / MVVM
-├── 10-async-concurrency-and-resilience.md   # Promise, async/await, Web Workers
-├── 11-testing-strategy-across-layers.md     # AAA, Mock, Spy, Stub
-└── 12-team-framework-integration.md         # 團隊慣例與 onboarding
+├── 00 Architect's Decision Flow     ← Start here: the map for everything
+│
+├── 01 Modules & Namespaces          ┐
+├── 02 Object Creation (Factory,     │
+│      Builder, Singleton)           │  Foundation layers
+├── 03 Shared Utilities &            │  (read in any order)
+│      Functional Core               │
+├── 04 IO & Infrastructure Adapters  │
+├── 05 Cross-Cutting Concerns        ┘
+│
+├── 06 Dependency Injection & IoC    ← Keystone: ties 01-05 together
+│
+├── 07 Inter-Component Communication ┐
+├── 08 State & Business Logic        │  Application layers
+├── 09 MVC / MVP / MVVM              │  (read in any order)
+├── 10 Async & Resilience            │
+├── 11 Testing Strategy              ┘
+│
+└── 12 Team & Framework Integration  ← Capstone: conventions for teams
 ```
 
-## 如何讓 AI Agent 在開發時參考這些設計模式
+Each skill file includes:
+- **When and why** to use each pattern (not just "how")
+- **Real-world mappings** from textbook examples to production scenarios
+- **Anti-patterns** — what goes wrong without the pattern
+- **Integration points** — how patterns compose across layers
 
-本專案最大的用途之一，是作為 **AI 輔助開發時的設計模式知識庫**。以下是幾種實際整合方式：
+## Quick Start: Make Your AI Agent Follow Design Patterns
 
-### 方式一：Claude Code — 寫入 `CLAUDE.md`
+### Option 1: Claude Code — Add to `CLAUDE.md`
 
-在你的專案根目錄的 `CLAUDE.md` 中加入引用指示：
+Add this to your project's `CLAUDE.md`. Claude Code loads it every session automatically:
 
 ```markdown
-## Design Pattern 指導原則
+## Design Pattern Guidelines
 
-在撰寫或重構程式碼時，請參考以下設計模式知識庫作為架構決策依據：
+When writing or refactoring code, follow these design pattern principles:
 https://github.com/MattAtAIEra/Learning_JavaScript_Design_Pattern
 
-關鍵原則：
-- 物件建立使用 Factory / Builder，避免裸 new（參考 skills/02）
-- 外部服務一律透過 Adapter 隔離（參考 skills/04）
-- 跨層溝通使用 Observer / Mediator，禁止直接耦合（參考 skills/07）
-- 商業邏輯集中於 Domain Layer，使用 State Pattern 管理狀態（參考 skills/08）
-- 依賴注入優先，由 Composition Root 統一組裝（參考 skills/06）
+Key rules:
+- Object creation via Factory / Builder — no bare `new` in business logic (ref: skills/02)
+- External services behind Adapter abstraction (ref: skills/04)
+- Cross-module communication via Observer / Mediator — no direct coupling (ref: skills/07)
+- Business logic in Domain Layer with State Pattern for state machines (ref: skills/08)
+- All dependencies injected, wired at Composition Root (ref: skills/06)
 ```
 
-Claude Code 每次對話都會載入 `CLAUDE.md`，因此 Agent 在寫程式時會自動遵循這些原則。
+### Option 2: Claude Code — Custom Slash Command
 
-### 方式二：Claude Code — 作為自訂 Slash Command
-
-將 skill 檔案設為可查閱的 slash command。在專案中建立 `.claude/commands/design-pattern.md`：
+Create `.claude/commands/design-pattern.md` in your project:
 
 ```markdown
-請根據以下設計模式指引，審查目前的程式架構並提出改善建議：
+Review the current code architecture against these design pattern guidelines and suggest improvements:
 
 $ARGUMENTS
 
-參考知識庫：
-- 分層架構總覽：skills/00-overview-architect-decision-flow.md
-- 物件建立層：skills/02-object-creation-layer.md
-- 通訊層：skills/07-inter-component-communication.md
-- 狀態管理：skills/08-state-management-and-business-logic.md
+Reference:
+- Layered architecture overview: skills/00-overview-architect-decision-flow.md
+- Object creation: skills/02-object-creation-layer.md
+- Communication: skills/07-inter-component-communication.md
+- State management: skills/08-state-management-and-business-logic.md
 ```
 
-使用時輸入 `/design-pattern 請檢查 src/services/ 的依賴關係是否合理`。
+Then run `/design-pattern check src/services/ dependency structure`.
 
-### 方式三：Cursor / Windsurf — Rules 檔案
+### Option 3: Cursor / Windsurf — Rules File
 
-在 Cursor 的 `.cursor/rules/design-patterns.mdc` 或 Windsurf 的 `.windsurfrules` 中：
+In `.cursor/rules/design-patterns.mdc` or `.windsurfrules`:
 
 ```markdown
 ---
-description: 設計模式架構決策指引
+description: Design pattern architecture guidelines
 globs: ["src/**/*.ts", "src/**/*.js"]
 ---
 
-# Design Pattern 指導原則
+# Design Pattern Guidelines
 
-架構決策請參考 skills/ 目錄下的設計模式教學：
-
-1. **模組邊界**（skills/01）：每個模組職責單一，透過明確介面暴露功能
-2. **物件建立**（skills/02）：複雜物件使用 Builder，家族物件使用 Abstract Factory
-3. **基礎設施隔離**（skills/04）：DB、HTTP、檔案系統一律透過 Adapter 抽象
-4. **橫切關注點**（skills/05）：logging、認證、快取使用 Decorator 或 AOP
-5. **依賴注入**（skills/06）：避免 service locator，在 Composition Root 統一組裝
-6. **元件通訊**（skills/07）：跨模組使用 Event Bus，複雜協調使用 Mediator
-7. **狀態管理**（skills/08）：有限狀態用 State Pattern，歷程追蹤用 Memento
-8. **非同步處理**（skills/10）：統一錯誤處理，實作 retry + circuit breaker
+1. **Module boundaries** (skills/01): Single responsibility, explicit interfaces
+2. **Object creation** (skills/02): Complex objects → Builder; families → Abstract Factory
+3. **Infrastructure isolation** (skills/04): DB, HTTP, filesystem behind Adapters
+4. **Cross-cutting** (skills/05): Logging, auth, caching via Decorator or AOP
+5. **Dependency injection** (skills/06): No service locators; wire at Composition Root
+6. **Communication** (skills/07): Cross-module via Event Bus; complex coordination via Mediator
+7. **State management** (skills/08): Finite states → State Pattern; history → Memento
+8. **Async handling** (skills/10): Unified error handling; retry + circuit breaker
 ```
 
-### 方式四：GitHub Copilot — 自訂指令
+### Option 4: GitHub Copilot — Custom Instructions
 
-在 `.github/copilot-instructions.md` 中引用：
+In `.github/copilot-instructions.md`:
 
 ```markdown
-## 架構原則
+## Architecture Rules
 
-本專案遵循分層架構設計模式，詳見 skills/ 目錄。
-程式碼審查與生成時請遵守以下規範：
+This project follows layered design patterns (see skills/ directory).
+When generating or reviewing code:
 
-- 不允許在 Domain Layer 直接呼叫外部 API（違反 skills/04 Adapter 原則）
-- 所有狀態轉換必須透過 State Pattern 明確定義（skills/08）
-- 新增模組必須可透過 DI 注入，不可硬編碼依賴（skills/06）
+- Never call external APIs directly from the Domain Layer (violates Adapter principle, skills/04)
+- All state transitions must be explicitly defined via State Pattern (skills/08)
+- New modules must be injectable — no hard-coded dependencies (skills/06)
 ```
 
-### 方式五：直接 Clone 到專案中作為子目錄
+### Option 5: Clone Into Any Project
 
 ```bash
-# 作為 git submodule
+# As a git submodule
 git submodule add https://github.com/MattAtAIEra/Learning_JavaScript_Design_Pattern.git docs/design-patterns
 
-# 或直接複製 skills/ 到專案
+# Or just copy the skills
 cp -r Learning_JavaScript_Design_Pattern/skills/ your-project/docs/design-patterns/
 ```
 
-然後在 AI Agent 的設定檔中指向該目錄，讓 Agent 在需要時自行查閱。
+Then point your AI tool's config to that directory.
 
-## 閱讀順序
+## The Long Game
 
-```
-00 全局地圖
- │
- ├── 01 ~ 05  基礎層（可平行閱讀）
- │
- └── 06 依賴注入（需先讀完 01-05）
-      │
-      ├── 07 ~ 11  應用層（可平行閱讀）
-      │
-      └── 12 團隊整合（需讀完全部）
-```
+Some say design patterns don't matter when code lifecycles are short and AI can rewrite anything. We disagree.
 
-## 授權
+**Code quality compounds.** Every well-structured module makes the next feature faster to build, cheaper to test, and easier for both humans and AI to understand. Every shortcut compounds too — in the wrong direction.
 
-本專案中的 SKILL.MD 教學內容為原創整理。設計模式的程式範例參考自 *Mastering JavaScript Design Patterns, Second Edition*（Packt），書籍原始碼與 PDF 不包含在本 repo 中。
+Design patterns are not about writing code slower. They're about writing code that **stays fast** — fast to read, fast to change, fast to extend. Not just today, but six months from now when nobody remembers why that function exists.
+
+An AI Agent armed with design patterns doesn't just write better code. It writes code that **reduces its own future token cost**, because well-structured code requires less context to understand and less work to modify. That's the real return on investment.
+
+**This isn't something most vibe coders discover on their own. But with 13 skill files, your AI Agent can internalize what takes human engineers years to learn — and apply it on every single commit.**
+
+## Contributing
+
+Issues and PRs welcome. If you've found a pattern that improves AI Agent code quality, we'd love to hear about it.
+
+## License
+
+The SKILL.MD teaching content in this repository is original work. Design pattern code examples reference *Mastering JavaScript Design Patterns, Second Edition* (Packt). The original book source code and PDFs are not included in this repo.
+
+---
+
+<p align="center">
+  If this helps your AI write better code, consider giving it a ⭐
+</p>

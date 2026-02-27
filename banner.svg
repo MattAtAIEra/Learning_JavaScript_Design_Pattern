@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="50%" style="stop-color:#1e293b"/>
+      <stop offset="100%" style="stop-color:#0f172a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#f97316"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="300" fill="url(#bg)"/>
+
+  <!-- Decorative grid pattern -->
+  <g opacity="0.06" stroke="#94a3b8" stroke-width="1">
+    <line x1="0" y1="60" x2="1200" y2="60"/>
+    <line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="180" x2="1200" y2="180"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="200" y1="0" x2="200" y2="300"/>
+    <line x1="400" y1="0" x2="400" y2="300"/>
+    <line x1="600" y1="0" x2="600" y2="300"/>
+    <line x1="800" y1="0" x2="800" y2="300"/>
+    <line x1="1000" y1="0" x2="1000" y2="300"/>
+  </g>
+
+  <!-- Left side: layered architecture icon -->
+  <g transform="translate(80, 55)">
+    <!-- Layer blocks -->
+    <rect x="0" y="0" width="140" height="32" rx="6" fill="#3b82f6" opacity="0.9"/>
+    <text x="70" y="22" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="13" font-weight="600" text-anchor="middle">Application</text>
+
+    <rect x="0" y="40" width="140" height="32" rx="6" fill="#8b5cf6" opacity="0.9"/>
+    <text x="70" y="62" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="13" font-weight="600" text-anchor="middle">Business Logic</text>
+
+    <rect x="0" y="80" width="140" height="32" rx="6" fill="#06b6d4" opacity="0.9"/>
+    <text x="70" y="102" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="13" font-weight="600" text-anchor="middle">Communication</text>
+
+    <rect x="0" y="120" width="140" height="32" rx="6" fill="#22c55e" opacity="0.9"/>
+    <text x="70" y="142" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="13" font-weight="600" text-anchor="middle">Infrastructure</text>
+
+    <rect x="0" y="160" width="140" height="32" rx="6" fill="#f59e0b" opacity="0.9"/>
+    <text x="70" y="182" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="13" font-weight="600" text-anchor="middle">Foundation</text>
+  </g>
+
+  <!-- Connecting arrow -->
+  <g transform="translate(245, 130)">
+    <line x1="0" y1="0" x2="50" y2="0" stroke="url(#accent)" stroke-width="3" stroke-dasharray="6,4"/>
+    <polygon points="50,-6 62,0 50,6" fill="#8b5cf6"/>
+  </g>
+
+  <!-- Center: AI Agent icon -->
+  <g transform="translate(310, 95)">
+    <rect x="0" y="0" width="80" height="80" rx="16" fill="none" stroke="url(#accent)" stroke-width="2.5"/>
+    <text x="40" y="38" fill="#a78bfa" font-family="system-ui,sans-serif" font-size="12" font-weight="600" text-anchor="middle">AI</text>
+    <text x="40" y="56" fill="#a78bfa" font-family="system-ui,sans-serif" font-size="12" font-weight="600" text-anchor="middle">Agent</text>
+    <!-- Sparkle dots -->
+    <circle cx="12" cy="12" r="3" fill="#3b82f6" opacity="0.8"/>
+    <circle cx="68" cy="12" r="3" fill="#8b5cf6" opacity="0.8"/>
+    <circle cx="12" cy="68" r="3" fill="#8b5cf6" opacity="0.8"/>
+    <circle cx="68" cy="68" r="3" fill="#3b82f6" opacity="0.8"/>
+  </g>
+
+  <!-- Arrow from agent to output -->
+  <g transform="translate(400, 130)">
+    <line x1="0" y1="0" x2="50" y2="0" stroke="url(#gold)" stroke-width="3" stroke-dasharray="6,4"/>
+    <polygon points="50,-6 62,0 50,6" fill="#f59e0b"/>
+  </g>
+
+  <!-- Right of arrow: quality badge -->
+  <g transform="translate(465, 105)">
+    <rect x="0" y="0" width="90" height="60" rx="12" fill="none" stroke="url(#gold)" stroke-width="2"/>
+    <text x="45" y="28" fill="#fbbf24" font-family="system-ui,sans-serif" font-size="14" font-weight="700" text-anchor="middle">Quality</text>
+    <text x="45" y="46" fill="#fbbf24" font-family="system-ui,sans-serif" font-size="14" font-weight="700" text-anchor="middle">Code</text>
+  </g>
+
+  <!-- Main title -->
+  <text x="620" y="90" fill="#f1f5f9" font-family="system-ui,sans-serif" font-size="36" font-weight="800" text-anchor="start">Design Patterns</text>
+  <text x="620" y="130" fill="#f1f5f9" font-family="system-ui,sans-serif" font-size="36" font-weight="800" text-anchor="start">for AI Agents</text>
+
+  <!-- Subtitle -->
+  <text x="620" y="168" fill="#94a3b8" font-family="system-ui,sans-serif" font-size="16" text-anchor="start">Teach your AI to write code that lasts.</text>
+  <text x="620" y="190" fill="#94a3b8" font-family="system-ui,sans-serif" font-size="16" text-anchor="start">Ship faster today. Pay less debt tomorrow.</text>
+
+  <!-- Bottom tags -->
+  <g transform="translate(620, 215)">
+    <rect x="0" y="0" width="120" height="28" rx="14" fill="#3b82f6" opacity="0.2"/>
+    <text x="60" y="19" fill="#60a5fa" font-family="system-ui,sans-serif" font-size="12" font-weight="600" text-anchor="middle">Save Tokens</text>
+
+    <rect x="135" y="0" width="140" height="28" rx="14" fill="#8b5cf6" opacity="0.2"/>
+    <text x="205" y="19" fill="#a78bfa" font-family="system-ui,sans-serif" font-size="12" font-weight="600" text-anchor="middle">Agent Discipline</text>
+
+    <rect x="290" y="0" width="120" height="28" rx="14" fill="#22c55e" opacity="0.2"/>
+    <text x="350" y="19" fill="#4ade80" font-family="system-ui,sans-serif" font-size="12" font-weight="600" text-anchor="middle">Zero Tech Debt</text>
+  </g>
+
+  <!-- Accent line bottom -->
+  <rect x="0" y="294" width="1200" height="6" fill="url(#accent)"/>
+</svg>
