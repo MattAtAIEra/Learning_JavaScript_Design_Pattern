@@ -66,27 +66,58 @@ The 13 skill files in this repo are that guide.
 
 13 structured skill files organized as a **layered architecture** — from foundation to team integration:
 
-```
-skills/
-├── 00 Architect's Decision Flow     ← Start here: the map for everything
-│
-├── 01 Modules & Namespaces          ┐
-├── 02 Object Creation (Factory,     │
-│      Builder, Singleton)           │  Foundation layers
-├── 03 Shared Utilities &            │  (read in any order)
-│      Functional Core               │
-├── 04 IO & Infrastructure Adapters  │
-├── 05 Cross-Cutting Concerns        ┘
-│
-├── 06 Dependency Injection & IoC    ← Keystone: ties 01-05 together
-│
-├── 07 Inter-Component Communication ┐
-├── 08 State & Business Logic        │  Application layers
-├── 09 MVC / MVP / MVVM              │  (read in any order)
-├── 10 Async & Resilience            │
-├── 11 Testing Strategy              ┘
-│
-└── 12 Team & Framework Integration  ← Capstone: conventions for teams
+```mermaid
+block-beta
+  columns 1
+
+  block:map["00 Architect's Decision Flow — Start here"]
+    columns 1
+  end
+
+  space
+
+  block:foundation["Foundation Layers (read in any order)"]
+    columns 5
+    s01["01\nModules &\nNamespaces"]
+    s02["02\nObject Creation\nFactory · Builder\nSingleton"]
+    s03["03\nShared Utilities\n& Functional Core"]
+    s04["04\nIO & Infra\nAdapters"]
+    s05["05\nCross-Cutting\nConcerns"]
+  end
+
+  space
+
+  block:keystone["06 Dependency Injection & IoC — Keystone: ties 01‑05 together"]
+    columns 1
+  end
+
+  space
+
+  block:application["Application Layers (read in any order)"]
+    columns 5
+    s07["07\nInter-Component\nCommunication"]
+    s08["08\nState &\nBusiness Logic"]
+    s09["09\nMVC / MVP\nMVVM"]
+    s10["10\nAsync &\nResilience"]
+    s11["11\nTesting\nStrategy"]
+  end
+
+  space
+
+  block:capstone["12 Team & Framework Integration — Capstone"]
+    columns 1
+  end
+
+  map --> foundation
+  foundation --> keystone
+  keystone --> application
+  application --> capstone
+
+  style map fill:#1e3a5f,stroke:#3b82f6,color:#e2e8f0
+  style foundation fill:#1a3a2e,stroke:#22c55e,color:#e2e8f0
+  style keystone fill:#3b1f6e,stroke:#8b5cf6,color:#e2e8f0
+  style application fill:#1a3a2e,stroke:#22c55e,color:#e2e8f0
+  style capstone fill:#5c3d1a,stroke:#f59e0b,color:#e2e8f0
 ```
 
 Each skill file includes:

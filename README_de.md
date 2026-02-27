@@ -64,27 +64,58 @@ Die 13 Skill-Dateien in diesem Repo sind diese Anleitung.
 
 13 strukturierte Skill-Dateien, organisiert als **Schichtenarchitektur** — von Grundlagen bis Teamintegration:
 
-```
-skills/
-├── 00 Entscheidungsfluss des Architekten  ← Hier starten: die Gesamtübersicht
-│
-├── 01 Module & Namespaces                 ┐
-├── 02 Objekterzeugung (Factory,           │
-│      Builder, Singleton)                 │  Grundschichten
-├── 03 Gemeinsame Utilities &              │  (in beliebiger Reihenfolge)
-│      Funktionaler Kern                   │
-├── 04 IO & Infrastruktur-Adapter          │
-├── 05 Querschnittsbelange                 ┘
-│
-├── 06 Dependency Injection & IoC          ← Schlussstein: verbindet 01-05
-│
-├── 07 Inter-Komponenten-Kommunikation     ┐
-├── 08 Zustand & Geschäftslogik            │  Anwendungsschichten
-├── 09 MVC / MVP / MVVM                    │  (in beliebiger Reihenfolge)
-├── 10 Async & Resilienz                   │
-├── 11 Teststrategie                       ┘
-│
-└── 12 Team- & Framework-Integration       ← Abschluss: Teamkonventionen
+```mermaid
+block-beta
+  columns 1
+
+  block:map["00 Entscheidungsfluss des Architekten — Hier starten"]
+    columns 1
+  end
+
+  space
+
+  block:foundation["Grundschichten (in beliebiger Reihenfolge)"]
+    columns 5
+    s01["01\nModule &\nNamespaces"]
+    s02["02\nObjekterzeugung\nFactory · Builder\nSingleton"]
+    s03["03\nGemeinsame\nUtilities &\nFunktionaler Kern"]
+    s04["04\nIO & Infra-\nAdapter"]
+    s05["05\nQuerschnitts-\nbelange"]
+  end
+
+  space
+
+  block:keystone["06 Dependency Injection & IoC — Schlussstein: verbindet 01‑05"]
+    columns 1
+  end
+
+  space
+
+  block:application["Anwendungsschichten (in beliebiger Reihenfolge)"]
+    columns 5
+    s07["07\nInter-Komponenten-\nKommunikation"]
+    s08["08\nZustand &\nGeschäftslogik"]
+    s09["09\nMVC / MVP\nMVVM"]
+    s10["10\nAsync &\nResilienz"]
+    s11["11\nTest-\nstrategie"]
+  end
+
+  space
+
+  block:capstone["12 Team- & Framework-Integration — Abschluss"]
+    columns 1
+  end
+
+  map --> foundation
+  foundation --> keystone
+  keystone --> application
+  application --> capstone
+
+  style map fill:#1e3a5f,stroke:#3b82f6,color:#e2e8f0
+  style foundation fill:#1a3a2e,stroke:#22c55e,color:#e2e8f0
+  style keystone fill:#3b1f6e,stroke:#8b5cf6,color:#e2e8f0
+  style application fill:#1a3a2e,stroke:#22c55e,color:#e2e8f0
+  style capstone fill:#5c3d1a,stroke:#f59e0b,color:#e2e8f0
 ```
 
 ## Schnellstart

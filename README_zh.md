@@ -66,26 +66,58 @@ Agent Discipline 指的是你的 AI 程式碼助手**持續遵循架構規則** 
 
 13 份結構化的 skill 檔案，以**分層架構**組織 — 從基礎到團隊整合：
 
-```
-skills/
-├── 00 架構師決策流程               ← 從這裡開始：全局地圖
-│
-├── 01 模組與命名空間               ┐
-├── 02 物件建立                     │
-│      (Factory, Builder, Singleton) │  基礎層
-├── 03 共享工具與函數式核心          │  （可任意順序閱讀）
-├── 04 IO 與基礎設施 Adapter       │
-├── 05 橫切關注點                   ┘
-│
-├── 06 依賴注入與 IoC 容器          ← 關鍵石：串連 01-05
-│
-├── 07 元件間通訊                   ┐
-├── 08 狀態與業務邏輯               │  應用層
-├── 09 MVC / MVP / MVVM            │  （可任意順序閱讀）
-├── 10 非同步與韌性                 │
-├── 11 測試策略                     ┘
-│
-└── 12 團隊與框架整合               ← 頂石：團隊慣例
+```mermaid
+block-beta
+  columns 1
+
+  block:map["00 架構師決策流程 — 從這裡開始"]
+    columns 1
+  end
+
+  space
+
+  block:foundation["基礎層（可任意順序閱讀）"]
+    columns 5
+    s01["01\n模組與\n命名空間"]
+    s02["02\n物件建立\nFactory · Builder\nSingleton"]
+    s03["03\n共享工具與\n函數式核心"]
+    s04["04\nIO 與基礎設施\nAdapter"]
+    s05["05\n橫切關注點"]
+  end
+
+  space
+
+  block:keystone["06 依賴注入與 IoC 容器 — 關鍵石：串連 01‑05"]
+    columns 1
+  end
+
+  space
+
+  block:application["應用層（可任意順序閱讀）"]
+    columns 5
+    s07["07\n元件間通訊"]
+    s08["08\n狀態與\n業務邏輯"]
+    s09["09\nMVC / MVP\nMVVM"]
+    s10["10\n非同步與韌性"]
+    s11["11\n測試策略"]
+  end
+
+  space
+
+  block:capstone["12 團隊與框架整合 — 頂石"]
+    columns 1
+  end
+
+  map --> foundation
+  foundation --> keystone
+  keystone --> application
+  application --> capstone
+
+  style map fill:#1e3a5f,stroke:#3b82f6,color:#e2e8f0
+  style foundation fill:#1a3a2e,stroke:#22c55e,color:#e2e8f0
+  style keystone fill:#3b1f6e,stroke:#8b5cf6,color:#e2e8f0
+  style application fill:#1a3a2e,stroke:#22c55e,color:#e2e8f0
+  style capstone fill:#5c3d1a,stroke:#f59e0b,color:#e2e8f0
 ```
 
 每個 skill 檔案包含：
