@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <strong>Bringen Sie Ihrem KI-Agenten bei, Code zu schreiben, der Bestand hat — ohne ihn auszubremsen.</strong>
+  <strong>Damit dein KI-Agent nicht nur schnell schreibt, sondern auch sauber — von Anfang an.</strong>
 </p>
 
 <p align="center">
@@ -12,57 +12,59 @@
 
 ---
 
-## Das Problem, über das niemand spricht
+## Worüber keiner redet
 
-KI-gestütztes Programmieren ist schnell. Unglaublich schnell. Aber Geschwindigkeit ohne Struktur erzeugt versteckte Kosten:
+KI-gestützte Entwicklung ist rasend schnell. Geradezu berauschend. Doch Tempo ohne Fundament hat einen Preis, der erst später sichtbar wird:
 
-> *„Der Code funktioniert, aber niemand kann ihn warten — nicht einmal die KI, die ihn geschrieben hat."*
+> *„Läuft alles. Wartbar ist es trotzdem nicht — selbst die KI, die es geschrieben hat, kommt nicht mehr klar."*
 
-Ein KI-Agent ohne Design-Pattern-Anleitung produziert Code, der **kompiliert und Tests besteht**, aber still technische Schulden anhäuft: eng gekoppelte Module, verstreute Geschäftslogik, duplizierte Muster und inkonsistente Abstraktionen. Sechs Monate später zahlen Sie Zinsen auf diese Geschwindigkeit — in Debugging-Zeit, Token-Kosten und Rewrite-Zyklen.
+Ein KI-Agent ohne klare Architekturvorgaben liefert Code, der **kompiliert und grüne Tests zeigt** — während im Hintergrund die technischen Schulden wachsen: Module, die aneinander kleben, Geschäftslogik verstreut über dutzende Dateien, drei verschiedene Lösungen für dasselbe Problem. Sechs Monate später bezahlst du die Zeche — mit Debugging-Marathons, steigenden Token-Kosten und dem unvermeidlichen Rewrite.
 
-**„Einfach neu schreiben"** ist der teuerste Satz im Software-Engineering. Er war teuer mit menschlichen Entwicklern. Er ist immer noch teuer mit KI — nur zahlen Sie in Token statt in Gehältern.
+**„Schreiben wir halt neu"** — der wohl teuerste Satz in der Softwareentwicklung. Früher kostete er Entwicklergehälter. Heute kostet er Token. Günstiger ist er dadurch nicht geworden.
 
-## Warum Design Patterns in der KI-Ära wichtiger sind
+## Warum Design Patterns im KI-Zeitalter wichtiger werden
 
-### Das Paradox der KI-Geschwindigkeit
+### Das Tempo-Paradox
 
-Traditionelle Entwickler lernen Design Patterns durch jahrelange schmerzhafte Erfahrung — Spaghetti-Code, gescheiterte Refactorings, Produktionsausfälle. Der Schmerz ist ein Lehrer. KI-Agenten überspringen den Schmerz komplett, was bedeutet: **Sie überspringen auch die Lektionen.**
+Erfahrene Entwickler haben Design Patterns auf die harte Tour gelernt: Spaghetti-Code, ein Refactoring, das alles schlimmer machte, ein Produktionsausfall um drei Uhr morgens. Schmerz ist ein guter Lehrer. KI-Agenten kennen keinen Schmerz — und **überspringen damit auch die Lektion**.
 
-Ohne explizite Anleitung wird ein KI-Agent:
-- In jeder Funktion eine neue Datenbankverbindung erstellen, statt einen **Singleton**-Pool zu verwenden
-- API-Aufrufe tief in die Geschäftslogik hart codieren, statt sie hinter einem **Adapter** zu isolieren
-- Konfiguration durch 8 Schichten von Funktionsparametern durchreichen, statt **Dependency Injection** zu verwenden
-- Event-Handling über 20 Dateien verstreuen, statt es mit einem **Observer** oder **Mediator** zu zentralisieren
+Ohne konkrete Vorgaben wird ein KI-Agent:
+- Pro Funktionsaufruf eine neue DB-Verbindung öffnen, statt einen **Singleton**-Pool zu nutzen
+- API-Calls mitten in die Geschäftslogik packen, statt sie hinter einem **Adapter** zu kapseln
+- Konfigurationswerte durch acht Funktionsparameter schleusen, statt auf **Dependency Injection** zu setzen
+- Event-Handling quer über 20 Dateien verteilen, statt es mit **Observer** oder **Mediator** zu bündeln
 
-Jedes davon „funktioniert". Jedes davon ist ein zukünftiger Bug, der darauf wartet, auszubrechen.
+Alles davon „funktioniert". Und alles davon wird irgendwann zum Problem.
 
-### Das Token-Wirtschafts-Argument
+### Was das für deine Token-Rechnung bedeutet
 
-Hier ist etwas, das Vibe-Coder selten bedenken: **Design Patterns reduzieren direkt den Token-Verbrauch.**
+Ein Aspekt, den die meisten Vibe-Coder übersehen: **Gute Architektur spart bares Geld bei den Token-Kosten.**
 
-| Szenario | Ohne Patterns | Mit Patterns |
-|----------|--------------|--------------|
-| „Stripe-Zahlung hinzufügen" | Agent liest 30 Dateien, um herauszufinden, wo die Zahlungslogik hingehört | Agent liest die Adapter-Schicht — 3 Dateien |
-| „Von MySQL zu PostgreSQL wechseln" | Agent schreibt 15 Dateien um, in denen SQL verstreut ist | Agent ändert 1 Adapter. Fertig. |
-| „Logging zu allen API-Aufrufen hinzufügen" | Agent modifiziert jeden Endpoint einzeln | Agent fügt eine Decorator/AOP-Middleware hinzu. 1 Datei. |
-| „Warum scheitern Bestellungen am Wochenende?" | Agent verfolgt Spaghetti-Code über 50+ Runden | Agent prüft das State Pattern — findet ungültigen Übergang in 2 Runden |
+| Aufgabe | Ohne Patterns | Mit Patterns |
+|---------|---------------|--------------|
+| „Stripe-Zahlung einbauen" | Agent durchforstet 30 Dateien auf der Suche nach der richtigen Stelle | Agent öffnet die Adapter-Schicht — 3 Dateien, fertig |
+| „MySQL durch PostgreSQL ersetzen" | Agent schreibt 15 Dateien um, in denen SQL verstreut liegt | Agent ändert einen Adapter. Erledigt. |
+| „Logging für alle API-Calls" | Agent bearbeitet jeden Endpoint einzeln | Agent hängt eine Decorator-Middleware ein. 1 Datei. |
+| „Warum scheitern Bestellungen am Wochenende?" | Agent verfolgt Spaghetti-Logik über 50+ Runden | Agent prüft das State Pattern — findet den Fehler in 2 Runden |
 
-Strukturierter Code bedeutet, der Agent **liest weniger, berührt weniger und liegt in weniger Iterationen richtig**. Weniger Iterationen = weniger Token = geringere Kosten. Das ist keine Theorie — das ist Arithmetik.
+Sauberer Code heißt: Der Agent **liest weniger, ändert weniger und trifft schneller ins Schwarze**. Weniger Durchläufe = weniger Token = niedrigere Kosten. Keine Theorie — einfache Mathematik.
 
-### Agent Discipline: Das fehlende Konzept
+### Agent Discipline — das fehlende Puzzlestück
 
-Wir reden viel über „KI-Alignment". Aber es gibt eine praktischere Version davon für Software-Engineering: **Agent Discipline (Agenten-Disziplin)**.
+Über „KI-Alignment" wird viel diskutiert. In der Softwareentwicklung gibt es dafür einen handfesteren Begriff: **Agent Discipline**.
 
-Agent Discipline bedeutet, dass Ihr KI-Coding-Assistent konsequent Architekturregeln befolgt — nicht weil er sie „versteht" wie ein Senior-Ingenieur, sondern weil Sie **die Muster, die er verwenden soll, explizit definiert haben**.
+Gemeint ist: Dein KI-Assistent hält sich verlässlich an Architekturregeln — nicht weil er sie wie ein erfahrener Architekt „versteht", sondern weil du **ihm klar gesagt hast, welche Muster gelten**.
 
-- **Ohne Disziplin:** Sie geben dem Agenten eine Aufgabe. Er schreibt etwas, das funktioniert. Jedes Mal anders. Technische Schulden wachsen leise.
-- **Mit Disziplin:** Sie geben dem Agenten eine Aufgabe *plus eine Design-Pattern-Anleitung*. Er schreibt etwas, das funktioniert **und in die bestehende Architektur passt**. Jedes Mal. Konsistent.
+Zwei Szenarien:
 
-Die 13 Skill-Dateien in diesem Repo sind diese Anleitung.
+- **Ohne Spielregeln:** Du gibst dem Agenten eine Aufgabe. Er liefert etwas, das läuft. Jedes Mal anders. Technische Schulden häufen sich still und leise.
+- **Mit Spielregeln:** Du gibst dem Agenten eine Aufgabe — **samt Design-Pattern-Leitfaden**. Er liefert etwas, das läuft **und zur bestehenden Architektur passt**. Jedes Mal. Verlässlich.
 
-## Inhalt
+Die 13 Skill-Dateien in diesem Repo sind genau dieser Leitfaden.
 
-13 strukturierte Skill-Dateien, organisiert als **Schichtenarchitektur** — von Grundlagen bis Teamintegration:
+## Was steckt drin
+
+13 Skill-Dateien, aufgebaut als **Schichtenarchitektur** — vom Fundament bis zur Team-Organisation:
 
 ```mermaid
 block-beta
@@ -114,24 +116,24 @@ block-beta
 
 ## Schnellstart
 
-Lesen Sie die [englische README](README.md) für detaillierte Integrationsanleitungen mit Claude Code, Cursor, Windsurf, GitHub Copilot und git submodule.
+Ausführliche Anleitungen zur Integration mit Claude Code, Cursor, Windsurf, GitHub Copilot und als git-Submodule findest du in der [englischen README](README.md).
 
-## Langfristiges Denken
+## Langfristig denken
 
-Manche sagen, Design Patterns seien unwichtig, wenn Code-Lebenszyklen kurz sind und KI alles neu schreiben kann. Wir widersprechen.
+Manche meinen, bei kurzen Code-Lebenszyklen und KI, die jederzeit alles neu schreiben kann, seien Design Patterns überflüssig. Wir sehen das anders.
 
-**Code-Qualität hat Zinseszins-Effekt.** Jedes gut strukturierte Modul macht das nächste Feature schneller zu bauen, günstiger zu testen und einfacher zu verstehen — für Menschen und KI gleichermaßen.
+**Code-Qualität wirkt wie Zinseszins.** Jedes sauber aufgebaute Modul macht das nächste Feature schneller, die Tests günstiger und den Code verständlicher — für Menschen wie für KI. Und Abkürzungen wirken genauso — nur in die falsche Richtung.
 
-Ein KI-Agent mit Design Patterns schreibt nicht nur besseren Code. Er schreibt Code, der **seine eigenen zukünftigen Token-Kosten senkt**, weil strukturierter Code weniger Kontext zum Verstehen und weniger Aufwand zum Ändern braucht.
+Ein KI-Agent mit Design-Pattern-Wissen schreibt nicht einfach besseren Code. Er schreibt Code, **der seine eigenen künftigen Token-Kosten senkt** — weil strukturierter Code weniger Kontext braucht und sich mit weniger Aufwand ändern lässt. Das ist der eigentliche Return on Investment.
 
-**Das ist nichts, was die meisten Vibe-Coder selbst entdecken. Aber mit 13 Skill-Dateien kann Ihr KI-Agent verinnerlichen, was menschliche Ingenieure Jahre brauchen, um zu lernen — und es bei jedem einzelnen Commit anwenden.**
+**Die wenigsten Vibe-Coder kommen von selbst auf diese Erkenntnis. Aber mit 13 Skill-Dateien kann dein KI-Agent in Minuten verinnerlichen, wofür menschliche Entwickler Jahre brauchen — und es ab dem nächsten Commit anwenden.**
 
 ## Lizenz
 
-Die SKILL.MD-Lehrinhalte in diesem Repository sind Originalarbeit. Die Design-Pattern-Codebeispiele beziehen sich auf *Mastering JavaScript Design Patterns, Second Edition* (Packt). Der Original-Quellcode und die PDFs des Buches sind nicht in diesem Repo enthalten.
+Die SKILL.MD-Inhalte sind eigenständige Originalarbeit. Code-Beispiele orientieren sich an *Mastering JavaScript Design Patterns, Second Edition* (Packt). Quellcode und PDFs des Buches sind nicht in diesem Repository enthalten.
 
 ---
 
 <p align="center">
-  Wenn dies Ihrer KI hilft, besseren Code zu schreiben, vergeben Sie gerne einen ⭐
+  Wenn es dir hilft, freuen wir uns über einen ⭐
 </p>
