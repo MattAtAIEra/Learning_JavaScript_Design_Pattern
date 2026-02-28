@@ -60,11 +60,11 @@ Think of it like this:
 - **Without discipline:** You give the Agent a task. It writes something that works. Each time differently. Technical debt quietly grows.
 - **With discipline:** You give the Agent a task *plus a design pattern guide*. It writes something that works **and fits into the existing architecture**. Every time. Consistently.
 
-The 13 skill files in this repo are that guide.
+The 15 skill files in this repo are that guide.
 
 ## What's Inside
 
-13 structured skill files organized as a **layered architecture** — from foundation to team integration:
+15 structured skill files organized as a **layered architecture** — from foundation to team integration:
 
 ```mermaid
 block-beta
@@ -86,6 +86,10 @@ block-beta
   s10["10\nAsync &\nResilience"]
   s11["11\nTesting\nStrategy"]
   space:5
+  s13["13\nReact Component\nPatterns"]
+  s14["14\nRendering &\nPerformance"]
+  space space space
+  space:5
   s12["12 Team & Framework Integration — Capstone"]:5
 
   s00 --> s01
@@ -103,15 +107,21 @@ block-beta
   s06 --> s09
   s06 --> s10
   s06 --> s11
+  s09 --> s13
+  s09 --> s14
   s07 --> s12
   s08 --> s12
   s09 --> s12
   s10 --> s12
   s11 --> s12
+  s13 --> s12
+  s14 --> s12
 
   style s00 fill:#7c3aed,color:#fff,stroke:#7c3aed
   style s06 fill:#7c3aed,color:#fff,stroke:#7c3aed
   style s12 fill:#7c3aed,color:#fff,stroke:#7c3aed
+  style s13 fill:#2563eb,color:#fff,stroke:#2563eb
+  style s14 fill:#2563eb,color:#fff,stroke:#2563eb
 ```
 
 Each skill file includes:
@@ -138,6 +148,8 @@ Key rules:
 - Cross-module communication via Observer / Mediator — no direct coupling (ref: skills/07)
 - Business logic in Domain Layer with State Pattern for state machines (ref: skills/08)
 - All dependencies injected, wired at Composition Root (ref: skills/06)
+- React components use HOC, Provider, useReducer, Compound patterns (ref: skills/13)
+- Rendering strategy chosen per route: SSG > ISR > SSR > CSR (ref: skills/14)
 ```
 
 ### Option 2: Claude Code — Custom Slash Command
@@ -217,7 +229,7 @@ Design patterns are not about writing code slower. They're about writing code th
 
 An AI Agent armed with design patterns doesn't just write better code. It writes code that **reduces its own future token cost**, because well-structured code requires less context to understand and less work to modify. That's the real return on investment.
 
-**This isn't something most vibe coders discover on their own. But with 13 skill files, your AI Agent can internalize what takes human engineers years to learn — and apply it on every single commit.**
+**This isn't something most vibe coders discover on their own. But with 15 skill files, your AI Agent can internalize what takes human engineers years to learn — and apply it on every single commit.**
 
 ## Contributing
 
@@ -225,7 +237,7 @@ Issues and PRs welcome. If you've found a pattern that improves AI Agent code qu
 
 ## License
 
-The SKILL.MD teaching content in this repository is original work. Design pattern code examples reference *Mastering JavaScript Design Patterns, Second Edition* (Packt). The original book source code and PDFs are not included in this repo.
+The SKILL.MD teaching content in this repository is original work. Design pattern code examples reference *Mastering JavaScript Design Patterns, Second Edition* by Simon Timms (Packt) and *Learning JavaScript Design Patterns* by Addy Osmani (O'Reilly). The original book source code and PDFs are not included in this repo.
 
 ---
 

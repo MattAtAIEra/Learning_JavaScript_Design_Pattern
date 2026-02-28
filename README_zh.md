@@ -60,11 +60,11 @@
 - **沒給規範：** 丟一個需求過去。AI 生出能跑的東西。但每次風格不同，技術債默默成長。
 - **有給規範：** 丟一個需求，**附上設計模式指引**。AI 生出能跑的東西，**而且跟現有架構無縫接軌**。每一次都一樣穩。
 
-這個 repo 裡的 13 份 skill 檔案，就是那份規範。
+這個 repo 裡的 15 份 skill 檔案，就是那份規範。
 
 ## 裡面有什麼
 
-13 份 skill 檔案，沿著**分層架構**由下往上編排：
+15 份 skill 檔案，沿著**分層架構**由下往上編排：
 
 ```mermaid
 block-beta
@@ -86,6 +86,10 @@ block-beta
   s10["10\n非同步與韌性"]
   s11["11\n測試策略"]
   space:5
+  s13["13\nReact 元件\n模式"]
+  s14["14\n渲染與\n效能模式"]
+  space space space
+  space:5
   s12["12 團隊與框架整合 — 頂石"]:5
 
   s00 --> s01
@@ -103,15 +107,21 @@ block-beta
   s06 --> s09
   s06 --> s10
   s06 --> s11
+  s09 --> s13
+  s09 --> s14
   s07 --> s12
   s08 --> s12
   s09 --> s12
   s10 --> s12
   s11 --> s12
+  s13 --> s12
+  s14 --> s12
 
   style s00 fill:#7c3aed,color:#fff,stroke:#7c3aed
   style s06 fill:#7c3aed,color:#fff,stroke:#7c3aed
   style s12 fill:#7c3aed,color:#fff,stroke:#7c3aed
+  style s13 fill:#2563eb,color:#fff,stroke:#2563eb
+  style s14 fill:#2563eb,color:#fff,stroke:#2563eb
 ```
 
 每份 skill 都會告訴你：
@@ -217,7 +227,7 @@ cp -r Learning_JavaScript_Design_Pattern/skills/ your-project/docs/design-patter
 
 懂設計模式的 AI Agent，不只寫出更好的程式碼 — 它寫出來的東西，**會讓自己下一次改動花更少的 token**。結構清楚的程式碼不需要塞一大堆 context 才能理解，改起來也不用大動干戈。這才是真正的投報率。
 
-**這不是剛踏進 vibe coding 的新手自己能頓悟的。但有了這 13 份 skill 檔案，你的 AI Agent 可以一口氣學到資深工程師花好幾年才悟出來的東西 — 而且每一次 commit 都派上用場。**
+**這不是剛踏進 vibe coding 的新手自己能頓悟的。但有了這 15 份 skill 檔案，你的 AI Agent 可以一口氣學到資深工程師花好幾年才悟出來的東西 — 而且每一次 commit 都派上用場。**
 
 ## 貢獻
 
@@ -225,7 +235,7 @@ cp -r Learning_JavaScript_Design_Pattern/skills/ your-project/docs/design-patter
 
 ## 授權
 
-SKILL.MD 教學內容為原創整理。設計模式程式碼範例參考 *Mastering JavaScript Design Patterns, Second Edition*（Packt），書籍原始碼與 PDF 不包含在此 repo 中。
+SKILL.MD 教學內容為原創整理。設計模式程式碼範例參考 *Mastering JavaScript Design Patterns, Second Edition*（Simon Timms, Packt）及 *Learning JavaScript Design Patterns*（Addy Osmani, O'Reilly），書籍原始碼與 PDF 不包含在此 repo 中。
 
 ---
 

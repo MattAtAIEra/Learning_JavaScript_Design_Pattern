@@ -204,3 +204,56 @@ class GoldTransfer {
 ## Next
 
 With cross-cutting concerns separated, [Skill 06](06-dependency-injection-and-ioc-container.md) wires everything together through Dependency Injection — the keystone of the architecture.
+
+
+---
+
+## AI Agent Documentation Protocol
+
+When an AI Agent completes a development task using patterns from this skill, it **MUST** perform the following documentation steps:
+
+### 1. Pattern Annotation Comments
+
+Add a block comment at the top of each file where a pattern is applied:
+
+```typescript
+/**
+ * @pattern Observer
+ * @skill 07-inter-component-communication
+ * @description TypedEventBus for cross-layer event notification
+ * @see skills/07-inter-component-communication.md
+ */
+```
+
+### 2. Mermaid Architecture Diagram
+
+Generate a Mermaid class or sequence diagram showing how the implemented patterns interact:
+
+```mermaid
+classDiagram
+    class IService {
+        <<interface>>
+    }
+    class ConcreteService {
+        +execute()
+    }
+    class Decorator {
+        -inner: IService
+        +execute()
+    }
+    IService <|.. ConcreteService
+    IService <|.. Decorator
+    Decorator o-- IService
+```
+
+### 3. Pattern Registry Update
+
+If a `pattern-registry.md` exists in the project, append an entry:
+
+```markdown
+| Date | File(s) | Pattern | Skill | Rationale |
+|------|---------|---------|-------|-----------|
+| YYYY-MM-DD | src/services/user-service.ts | Decorator | 05 | Added logging without modifying business logic |
+```
+
+> These steps ensure every AI-generated code change is traceable to a design decision, making future modifications faster and cheaper for both humans and AI agents.

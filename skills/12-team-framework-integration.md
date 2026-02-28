@@ -219,12 +219,16 @@ The framework is not code you install — it's **decisions you make together**:
 9. **MVC/MVP/MVVM** separates UI from logic (Skill 09)
 10. **Resilience patterns** handle real-world failures (Skill 10)
 11. **Layer-targeted tests** verify each piece independently (Skill 11)
+12. **React component patterns** map classical patterns to modern UI (Skill 13)
+13. **Rendering & performance patterns** optimize delivery to users (Skill 14)
 
 The result: engineers work on different layers in parallel, develop against shared interfaces, and the DI container assembles the running system.
 
 ## References
 
-All code examples are in `Mastering-JavaScript-Design-Patterns-Second-Edition-master/`:
+Code examples come from two sources:
+
+**Simon Timms** — `Data_Source/Simon Timms/`:
 - `B05337_03/` — Creational patterns (Skill 02)
 - `B05337_04/` — Structural patterns (Skills 04, 05)
 - `B05337_05/` — Behavioral patterns (Skills 07, 08)
@@ -234,3 +238,66 @@ All code examples are in `Mastering-JavaScript-Design-Patterns-Second-Edition-ma
 - `B05337_12/` — Testing patterns (Skill 11)
 - `B05337_13/` — AOP, DI, DSL (Skills 05, 06)
 - `B05337_14/` — Modern JS/TS features
+
+**Addy Osmani** — `Data_Source/Addy Osmani/learning-jsdp-main/`:
+- `ch05/` — ES Modules, dynamic import (Skill 01)
+- `ch07/` — Design patterns: Proxy, Flyweight, Mixin, Observer variants (Skills 01, 03, 04, 07)
+- `ch08/` — MVC/MVP/MVVM modern frameworks (Skill 09)
+- `ch09/` — Async patterns: Promise pipeline, memoization (Skill 10)
+- `ch10/` — Module loading: AMD, CommonJS, UMD (Skill 01)
+- `ch11/` — Namespacing patterns (Skill 01)
+- `ch12/` — React component patterns (Skill 13)
+- `ch13/` — Next.js rendering & performance patterns (Skill 14)
+
+
+---
+
+## AI Agent Documentation Protocol
+
+When an AI Agent completes a development task using patterns from this skill, it **MUST** perform the following documentation steps:
+
+### 1. Pattern Annotation Comments
+
+Add a block comment at the top of each file where a pattern is applied:
+
+```typescript
+/**
+ * @pattern Observer
+ * @skill 07-inter-component-communication
+ * @description TypedEventBus for cross-layer event notification
+ * @see skills/07-inter-component-communication.md
+ */
+```
+
+### 2. Mermaid Architecture Diagram
+
+Generate a Mermaid class or sequence diagram showing how the implemented patterns interact:
+
+```mermaid
+classDiagram
+    class IService {
+        <<interface>>
+    }
+    class ConcreteService {
+        +execute()
+    }
+    class Decorator {
+        -inner: IService
+        +execute()
+    }
+    IService <|.. ConcreteService
+    IService <|.. Decorator
+    Decorator o-- IService
+```
+
+### 3. Pattern Registry Update
+
+If a `pattern-registry.md` exists in the project, append an entry:
+
+```markdown
+| Date | File(s) | Pattern | Skill | Rationale |
+|------|---------|---------|-------|-----------|
+| YYYY-MM-DD | src/services/user-service.ts | Decorator | 05 | Added logging without modifying business logic |
+```
+
+> These steps ensure every AI-generated code change is traceable to a design decision, making future modifications faster and cheaper for both humans and AI agents.

@@ -4,11 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Purpose
 
-A learning repository for JavaScript/TypeScript design patterns, based on "Mastering JavaScript Design Patterns Second Edition" (Packt). The owner is studying these patterns and building a series of SKILL.MD files to teach design patterns to engineers.
+A learning repository for JavaScript/TypeScript design patterns, based on two books:
+- *Mastering JavaScript Design Patterns, Second Edition* by Simon Timms (Packt)
+- *Learning JavaScript Design Patterns* by Addy Osmani (O'Reilly)
+
+The owner is studying these patterns and building a series of SKILL.MD files to teach design patterns to engineers.
 
 ## Repository Structure
 
-Code examples live under `Mastering-JavaScript-Design-Patterns-Second-Edition-master/`:
+Code examples live under `Data_Source/`:
+
+**Simon Timms** — `Data_Source/Simon Timms/` (Westeros namespace):
 
 | Directory    | Topic                                                        |
 |-------------|--------------------------------------------------------------|
@@ -24,7 +30,18 @@ Code examples live under `Mastering-JavaScript-Design-Patterns-Second-Edition-ma
 | B05337_13   | AOP, Dependency Injection, DSL                               |
 | B05337_14   | Modern JS/TS Features (Decorators, Async/Await, Arrow Functions, Babel transpilation) |
 
-Two PDF books are also at the repo root for reference.
+**Addy Osmani** — `Data_Source/Addy Osmani/learning-jsdp-main/`:
+
+| Directory | Topic                                                          |
+|-----------|----------------------------------------------------------------|
+| ch05      | ES Modules, Classes, Dynamic Import                            |
+| ch07      | Design Patterns (Proxy, Flyweight, Mixin, Observer variants, Revealing Module) |
+| ch08      | MVC/MVP/MVVM with modern frameworks (React, Vue, Lodash)      |
+| ch09      | Async Patterns (Promise Pipeline, Memoization, Async Iteration)|
+| ch10      | Module Loading (AMD, CommonJS, UMD)                            |
+| ch11      | Namespacing Patterns                                           |
+| ch12      | React Component Patterns (HOC, Hooks, Provider, Mediator)      |
+| ch13      | Next.js Rendering & Performance Patterns (SSR, SSG, ISR)       |
 
 ## Code Conventions
 
@@ -46,7 +63,8 @@ The owner is building a `skills/` directory at the repo root containing English-
 - Place all files under `skills/` at the repo root.
 - Write in **English**.
 - Each file covers one pattern or a cohesive group of related patterns.
-- Reference the corresponding code examples in `Mastering-JavaScript-Design-Patterns-Second-Edition-master/`.
+- Reference the corresponding code examples in `Data_Source/`.
+- There are 15 skill files (00-14) covering layered architecture from foundation to rendering patterns.
 
 ## Communication Language
 

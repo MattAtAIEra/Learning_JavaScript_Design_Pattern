@@ -134,6 +134,61 @@ for (const n of new NumberRange(1, 5)) { console.log(n); }
 const nums = [...new NumberRange(1, 10)];
 ```
 
+### Mixin Pattern — Composable Shared Behavior
+
+Mixins add behavior to classes without inheritance. Three variants exist:
+
+```typescript
+// 1. Constructor Augmenting Mixin — adds methods to existing class
+function Serializable<T extends new (...args: any[]) => any>(Base: T) {
+  return class extends Base {
+    toJSON() { return JSON.stringify(this); }
+    static fromJSON(json: string) { return Object.assign(new Base(), JSON.parse(json)); }
+  };
+}
+
+// 2. Subclassing Mixin — adds shared behavior to a class hierarchy
+function Timestamped<T extends new (...args: any[]) => any>(Base: T) {
+  return class extends Base {
+    createdAt = new Date();
+    updatedAt = new Date();
+    touch() { this.updatedAt = new Date(); }
+  };
+}
+
+// 3. Compose multiple mixins
+class User {
+  constructor(public name: string) {}
+}
+
+const EnhancedUser = Serializable(Timestamped(User));
+const user = new EnhancedUser('Alice');
+user.touch();
+console.log(user.toJSON());
+```
+
+**Object.assign Mixin (simpler variant):**
+
+```typescript
+// Merge behavior from multiple sources
+const Validatable = {
+  validate() { return Object.keys(this).every(k => this[k] != null); }
+};
+
+const Loggable = {
+  log() { console.log(JSON.stringify(this)); }
+};
+
+// Apply to any object
+const user = Object.assign({ name: 'Alice', email: 'a@b.com' }, Validatable, Loggable);
+user.validate(); // true
+user.log();      // {"name":"Alice","email":"a@b.com"}
+```
+
+**Ref:** `Data_Source/Addy Osmani/learning-jsdp-main/ch07/` — Mixin pattern (3 variants: augmenting, subclassing, superclassing)
+
+**When to use:** Cross-cutting behavior (serialization, timestamps, validation) that doesn't warrant a full Decorator ([Skill 05](05-cross-cutting-concerns-aop-and-decorators.md)) chain.
+
 ## TEAM Convention
 
 1. **Utility functions are pure.** No `this`, no mutation, no IO. Given the same input, always the same output.
@@ -141,6 +196,7 @@ const nums = [...new NumberRange(1, 10)];
 3. **Don't extend native prototypes.** Use standalone functions instead of `Array.prototype.where`.
 4. **Strategy interfaces go in `core/`.** Implementations can live in any layer, but the interface is shared.
 5. **Prefer `ReadonlyArray`, `Readonly<T>`, and `as const` for shared data structures.**
+6. **Use Mixins for cross-cutting behavior** that multiple unrelated classes need. Prefer TypeScript mixin functions over `Object.assign` for type safety.
 
 ## References
 
@@ -149,7 +205,61 @@ const nums = [...new NumberRange(1, 10)];
 - `B05337_06/Immutable.ts` — Nearly empty (needs production enhancement)
 - `B05337_05/Iterator.ts` — Manual iterator implementation
 - `B05337_05/Strategy.ts` — `ITravelMethod` strategy interface
+- `Data_Source/Addy Osmani/learning-jsdp-main/ch07/` — Mixin pattern (3 variants)
 
 ## Next
 
 With shared utilities defined, [Skill 04](04-io-and-infrastructure-adapters.md) shows how to isolate external systems behind adapter interfaces.
+
+
+---
+
+## AI Agent Documentation Protocol
+
+When an AI Agent completes a development task using patterns from this skill, it **MUST** perform the following documentation steps:
+
+### 1. Pattern Annotation Comments
+
+Add a block comment at the top of each file where a pattern is applied:
+
+```typescript
+/**
+ * @pattern Observer
+ * @skill 07-inter-component-communication
+ * @description TypedEventBus for cross-layer event notification
+ * @see skills/07-inter-component-communication.md
+ */
+```
+
+### 2. Mermaid Architecture Diagram
+
+Generate a Mermaid class or sequence diagram showing how the implemented patterns interact:
+
+```mermaid
+classDiagram
+    class IService {
+        <<interface>>
+    }
+    class ConcreteService {
+        +execute()
+    }
+    class Decorator {
+        -inner: IService
+        +execute()
+    }
+    IService <|.. ConcreteService
+    IService <|.. Decorator
+    Decorator o-- IService
+```
+
+### 3. Pattern Registry Update
+
+If a `pattern-registry.md` exists in the project, append an entry:
+
+```markdown
+| Date | File(s) | Pattern | Skill | Rationale |
+|------|---------|---------|-------|-----------|
+| YYYY-MM-DD | src/services/user-service.ts | Decorator | 05 | Added logging without modifying business logic |
+```
+
+> These steps ensure every AI-generated code change is traceable to a design decision, making future modifications faster and cheaper for both humans and AI agents.

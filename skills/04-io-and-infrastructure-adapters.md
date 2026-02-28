@@ -154,7 +154,155 @@ export class FileOutput implements ILogOutput {
 // new SecurityLogger(new RemoteOutput('https://siem.example.com'))
 ```
 
-### Proxy — Caching and Access Control
+### Proxy — ES6 Proxy Traps
+
+JavaScript's native `Proxy` object provides a powerful way to intercept and customize operations on objects:
+
+```typescript
+// ES6 Proxy — intercept property access, assignment, and more
+const handler: ProxyHandler<any> = {
+  get(target, property, receiver) {
+    console.log(`Accessing ${String(property)}`);
+    return Reflect.get(target, property, receiver);
+  },
+  set(target, property, value, receiver) {
+    console.log(`Setting ${String(property)} = ${value}`);
+    // Validation trap — reject invalid values
+    if (property === 'age' && (typeof value !== 'number' || value < 0)) {
+      throw new TypeError('Age must be a non-negative number');
+    }
+    return Reflect.set(target, property, value, receiver);
+  },
+  has(target, property) {
+    // Hide private properties from `in` operator
+    if (String(property).startsWith('_')) return false;
+    return property in target;
+  },
+  deleteProperty(target, property) {
+    if (String(property).startsWith('_')) {
+      throw new Error('Cannot delete private property');
+    }
+    return delete target[property];
+  }
+};
+
+const user = new Proxy({ name: 'Alice', age: 30, _secret: 'hidden' }, handler);
+user.name;        // logs: "Accessing name"
+user.age = 31;    // logs: "Setting age = 31"
+user.age = -1;    // throws TypeError
+'_secret' in user; // false (hidden by has trap)
+```
+
+**Production use cases for ES6 Proxy:**
+
+```typescript
+// 1. Lazy-loading proxy — defer expensive initialization
+function createLazyProxy<T>(factory: () => T): T {
+  let instance: T | undefined;
+  return new Proxy({} as T, {
+    get(_, property) {
+      if (!instance) instance = factory();
+      return (instance as any)[property];
+    }
+  });
+}
+
+// 2. Reactive data binding (how Vue.js reactivity works)
+function reactive<T extends object>(target: T, onChange: () => void): T {
+  return new Proxy(target, {
+    set(obj, prop, value) {
+      const result = Reflect.set(obj, prop, value);
+      onChange();  // trigger re-render
+      return result;
+    }
+  });
+}
+
+// 3. API call logging proxy
+function withLogging<T extends object>(service: T, logger: ILogger): T {
+  return new Proxy(service, {
+    get(target, property) {
+      const original = (target as any)[property];
+      if (typeof original === 'function') {
+        return function(...args: any[]) {
+          logger.info(`${String(property)} called with`, args);
+          return original.apply(target, args);
+        };
+      }
+      return original;
+    }
+  });
+}
+```
+
+**Ref:** `Data_Source/Addy Osmani/learning-jsdp-main/ch07/proxy/` — ES6 Proxy pattern examples with traps
+
+### Flyweight — Shared Intrinsic State
+
+The Flyweight pattern separates **intrinsic** (shared) state from **extrinsic** (instance-specific) state to minimize memory usage:
+
+```typescript
+// Problem: 10,000 books, each storing duplicate author/genre/publisher data
+
+// Flyweight factory — manages shared intrinsic state
+class BookFlyweightFactory {
+  private static flyweights = new Map<string, BookFlyweight>();
+
+  static get(title: string, author: string, genre: string, isbn: string): BookFlyweight {
+    const key = `${isbn}`;
+    if (!this.flyweights.has(key)) {
+      this.flyweights.set(key, new BookFlyweight(title, author, genre, isbn));
+    }
+    return this.flyweights.get(key)!;
+  }
+
+  static getCount(): number { return this.flyweights.size; }
+}
+
+// Flyweight — intrinsic (shared) state only
+class BookFlyweight {
+  constructor(
+    readonly title: string,
+    readonly author: string,
+    readonly genre: string,
+    readonly isbn: string
+  ) {}
+}
+
+// Context — extrinsic (per-instance) state
+interface BookRecord {
+  flyweight: BookFlyweight;    // shared
+  checkoutDate: Date;           // instance-specific
+  checkoutMember: string;       // instance-specific
+  dueDate: Date;                // instance-specific
+  availability: boolean;        // instance-specific
+}
+
+// Manager coordinates flyweight + extrinsic state
+class BookRecordManager {
+  private records: BookRecord[] = [];
+
+  addRecord(title: string, author: string, genre: string, isbn: string,
+            member: string, checkoutDate: Date, dueDate: Date) {
+    const flyweight = BookFlyweightFactory.get(title, author, genre, isbn);
+    this.records.push({
+      flyweight,
+      checkoutDate,
+      checkoutMember: member,
+      dueDate,
+      availability: false,
+    });
+  }
+}
+
+// Result: 10,000 book records but only ~500 unique flyweight objects
+```
+
+**Production mapping:** Connection pooling is a Flyweight. The pool (factory) manages shared connection objects; each checkout adds extrinsic context (query, timeout, caller).
+
+**Ref:** `Data_Source/Addy Osmani/learning-jsdp-main/ch07/` — BookFactory Flyweight with intrinsic/extrinsic separation
+
+### Caching Proxy — Interface-Compatible Wrapper
 
 ```typescript
 // Caching Proxy wraps any repository
@@ -197,7 +345,62 @@ export class CachingUserRepository implements IUserRepository {
 - `B05337_04/Bridege.ts` — Bridge with religion adapters (filename typo; concept is solid)
 - `B05337_04/Proxy.ts` — Proxy pattern
 - `B05337_04/Flyweight.ts` — Flyweight (relevant to connection pooling)
+- `Data_Source/Addy Osmani/learning-jsdp-main/ch07/proxy/` — ES6 Proxy with handler traps
+- `Data_Source/Addy Osmani/learning-jsdp-main/ch07/` — Flyweight BookFactory (intrinsic/extrinsic)
 
 ## Next
 
 With infrastructure isolated, [Skill 05](05-cross-cutting-concerns-aop-and-decorators.md) handles the concerns that cut across all layers: logging, security, and caching.
+
+
+---
+
+## AI Agent Documentation Protocol
+
+When an AI Agent completes a development task using patterns from this skill, it **MUST** perform the following documentation steps:
+
+### 1. Pattern Annotation Comments
+
+Add a block comment at the top of each file where a pattern is applied:
+
+```typescript
+/**
+ * @pattern Observer
+ * @skill 07-inter-component-communication
+ * @description TypedEventBus for cross-layer event notification
+ * @see skills/07-inter-component-communication.md
+ */
+```
+
+### 2. Mermaid Architecture Diagram
+
+Generate a Mermaid class or sequence diagram showing how the implemented patterns interact:
+
+```mermaid
+classDiagram
+    class IService {
+        <<interface>>
+    }
+    class ConcreteService {
+        +execute()
+    }
+    class Decorator {
+        -inner: IService
+        +execute()
+    }
+    IService <|.. ConcreteService
+    IService <|.. Decorator
+    Decorator o-- IService
+```
+
+### 3. Pattern Registry Update
+
+If a `pattern-registry.md` exists in the project, append an entry:
+
+```markdown
+| Date | File(s) | Pattern | Skill | Rationale |
+|------|---------|---------|-------|-----------|
+| YYYY-MM-DD | src/services/user-service.ts | Decorator | 05 | Added logging without modifying business logic |
+```
+
+> These steps ensure every AI-generated code change is traceable to a design decision, making future modifications faster and cheaper for both humans and AI agents.

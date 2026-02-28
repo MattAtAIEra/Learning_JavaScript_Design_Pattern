@@ -137,6 +137,94 @@ class OrderController {
 }
 ```
 
+### Modern Framework Implementations
+
+Modern frameworks implement MVC/MVP/MVVM with their own conventions. Understanding the classical patterns helps you see **what the framework is doing for you**:
+
+**React — Component as View + ViewModel (MVVM-like):**
+
+```typescript
+// React hooks act as the ViewModel
+function OrderPage() {
+  // ViewModel state
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [filter, setFilter] = useState<'all' | 'pending' | 'shipped'>('all');
+
+  // ViewModel logic (would be in Presenter/ViewModel in classical patterns)
+  useEffect(() => {
+    orderService.getOrders(filter).then(setOrders);
+  }, [filter]);
+
+  const handleStatusChange = async (orderId: string, newStatus: string) => {
+    await orderService.updateStatus(orderId, newStatus);
+    setOrders(prev => prev.map(o =>
+      o.id === orderId ? { ...o, status: newStatus } : o
+    ));
+  };
+
+  // View (JSX) is data-bound to ViewModel state
+  return (
+    <div>
+      <FilterBar current={filter} onChange={setFilter} />
+      <OrderList orders={orders} onStatusChange={handleStatusChange} />
+    </div>
+  );
+}
+```
+
+**Vue.js — Reactive MVVM:**
+
+```typescript
+// Vue's Composition API maps directly to MVVM
+import { ref, computed, watch } from 'vue';
+
+export default {
+  setup() {
+    // ViewModel (reactive state)
+    const searchQuery = ref('');
+    const items = ref<Item[]>([]);
+
+    // Computed properties = derived ViewModel state
+    const filteredItems = computed(() =>
+      items.value.filter(item =>
+        item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+      )
+    );
+
+    // Watcher = Observer pattern on ViewModel changes
+    watch(searchQuery, async (newQuery) => {
+      if (newQuery.length > 2) {
+        items.value = await searchService.search(newQuery);
+      }
+    });
+
+    // Expose to View template (two-way binding)
+    return { searchQuery, filteredItems };
+  }
+};
+```
+
+**Lodash/Backbone-style MVC (historical):**
+
+```javascript
+// Classical MVC with Backbone-style models (for understanding legacy code)
+const UserModel = Backbone.Model.extend({
+  defaults: { name: '', email: '' },
+  validate(attrs) {
+    if (!attrs.name) return 'Name is required';
+  }
+});
+
+const UserView = Backbone.View.extend({
+  events: { 'click .save': 'onSave' },
+  initialize() { this.listenTo(this.model, 'change', this.render); },  // Observer
+  render() { this.$el.html(template(this.model.toJSON())); },
+  onSave() { this.model.save(); }
+});
+```
+
+**Ref:** `Data_Source/Addy Osmani/learning-jsdp-main/ch08/` — MVC/MVP/MVVM advanced variants with React/Vue/Lodash examples
+
 ### When to Use Which
 
 | Scenario | Pattern | Reason |
@@ -145,6 +233,8 @@ class OrderController {
 | Complex desktop-style UI | MVP | Passive view enables full presenter testing |
 | SPA with data-binding framework | MVVM | Framework handles binding automatically |
 | API-only backend | None of these — use Service Layer pattern | No view to orchestrate |
+| React app | MVVM-like (hooks as ViewModel) | Hooks manage state + logic, JSX is the View |
+| Vue app | MVVM (Composition API) | Reactive refs + computed = ViewModel, template = View |
 
 ## TEAM Convention
 
@@ -162,7 +252,61 @@ class OrderController {
 - `B05337_07/SimpleMVC.ts` — Simplified MVC variant
 - `B05337_07/Observe.ts` — Observer helper for binding
 - `B05337_08/` — Advanced variants of the same patterns
+- `Data_Source/Addy Osmani/learning-jsdp-main/ch08/` — Modern MVC/MVP/MVVM with React/Vue/Lodash
 
 ## Next
 
 With the application layer in place, [Skill 10](10-async-concurrency-and-resilience.md) handles async operations and resilience across all layers.
+
+
+---
+
+## AI Agent Documentation Protocol
+
+When an AI Agent completes a development task using patterns from this skill, it **MUST** perform the following documentation steps:
+
+### 1. Pattern Annotation Comments
+
+Add a block comment at the top of each file where a pattern is applied:
+
+```typescript
+/**
+ * @pattern Observer
+ * @skill 07-inter-component-communication
+ * @description TypedEventBus for cross-layer event notification
+ * @see skills/07-inter-component-communication.md
+ */
+```
+
+### 2. Mermaid Architecture Diagram
+
+Generate a Mermaid class or sequence diagram showing how the implemented patterns interact:
+
+```mermaid
+classDiagram
+    class IService {
+        <<interface>>
+    }
+    class ConcreteService {
+        +execute()
+    }
+    class Decorator {
+        -inner: IService
+        +execute()
+    }
+    IService <|.. ConcreteService
+    IService <|.. Decorator
+    Decorator o-- IService
+```
+
+### 3. Pattern Registry Update
+
+If a `pattern-registry.md` exists in the project, append an entry:
+
+```markdown
+| Date | File(s) | Pattern | Skill | Rationale |
+|------|---------|---------|-------|-----------|
+| YYYY-MM-DD | src/services/user-service.ts | Decorator | 05 | Added logging without modifying business logic |
+```
+
+> These steps ensure every AI-generated code change is traceable to a design decision, making future modifications faster and cheaper for both humans and AI agents.

@@ -10,6 +10,10 @@ This document is the **map** for the entire skill series. It shows the full laye
 
 ```
 ┌─────────────────────────────────────────────────┐
+│  13: React Component   │  14: Rendering &       │
+│  Patterns (HOC, Hooks, │  Performance (SSR,     │
+│  Provider, Compound)    │  SSG, Code Splitting)  │
+├─────────────────────────┴───────────────────────┤
 │           09: Application Layer                 │
 │           (MVC / MVP / MVVM)                    │
 ├─────────────────────────────────────────────────┤
@@ -58,6 +62,8 @@ An architect designs a system **bottom-up**, not feature-down:
 | 10 | How do I handle async and failure? | [10 - Async & Resilience](10-async-concurrency-and-resilience.md) |
 | 11 | How do I verify each layer works? | [11 - Testing Strategy](11-testing-strategy-across-layers.md) |
 | 12 | How does the team work as one? | [12 - Team Framework](12-team-framework-integration.md) |
+| 13 | How do I structure React components? | [13 - React Patterns](13-react-component-patterns.md) |
+| 14 | How do I optimize rendering and loading? | [14 - Rendering & Performance](14-rendering-and-performance-patterns.md) |
 
 ## Reading Order
 
@@ -78,12 +84,19 @@ An architect designs a system **bottom-up**, not feature-down:
       ├── 10  │
       ├── 11 ─┘
       │
+      ├── 13 ─┐  can be read in parallel
+      ├── 14 ─┘  (after 09)
+      │
       └── 12 (capstone — requires all)
 ```
 
 ## Book Example Quality Assessment
 
-The code in `Mastering-JavaScript-Design-Patterns-Second-Edition-master/` ranges from excellent to skeletal. Each skill file notes what works as-is and what needs production enhancement:
+The code comes from two sources:
+1. **Simon Timms** — `Data_Source/Simon Timms/` (Westeros namespace, GoF full set + functional/messaging/async/testing patterns)
+2. **Addy Osmani** — `Data_Source/Addy Osmani/` (ES Modules, React Component Patterns, Rendering/Performance Patterns, Promise variants)
+
+Quality ranges from excellent to skeletal. Each skill file notes what works as-is and what needs production enhancement:
 
 | Book Directory | Quality | Best Used As |
 |---------------|---------|-------------|
@@ -104,3 +117,56 @@ All book examples use a Game of Thrones "Westeros" namespace. Throughout these s
 - `Westeros.Transportation.ShipAdapter` → `HttpClientAdapter`
 - `Westeros.Communication.CrowMailBus` → `ApplicationEventBus`
 - `Westeros.Banking.BankAccountManager` → Domain entity with state machine
+
+
+---
+
+## AI Agent Documentation Protocol
+
+When an AI Agent completes a development task using patterns from this skill, it **MUST** perform the following documentation steps:
+
+### 1. Pattern Annotation Comments
+
+Add a block comment at the top of each file where a pattern is applied:
+
+```typescript
+/**
+ * @pattern Observer
+ * @skill 07-inter-component-communication
+ * @description TypedEventBus for cross-layer event notification
+ * @see skills/07-inter-component-communication.md
+ */
+```
+
+### 2. Mermaid Architecture Diagram
+
+Generate a Mermaid class or sequence diagram showing how the implemented patterns interact:
+
+```mermaid
+classDiagram
+    class IService {
+        <<interface>>
+    }
+    class ConcreteService {
+        +execute()
+    }
+    class Decorator {
+        -inner: IService
+        +execute()
+    }
+    IService <|.. ConcreteService
+    IService <|.. Decorator
+    Decorator o-- IService
+```
+
+### 3. Pattern Registry Update
+
+If a `pattern-registry.md` exists in the project, append an entry:
+
+```markdown
+| Date | File(s) | Pattern | Skill | Rationale |
+|------|---------|---------|-------|-----------|
+| YYYY-MM-DD | src/services/user-service.ts | Decorator | 05 | Added logging without modifying business logic |
+```
+
+> These steps ensure every AI-generated code change is traceable to a design decision, making future modifications faster and cheaper for both humans and AI agents.

@@ -194,6 +194,71 @@ bus.on<Order>(Events.ORDER_PLACED, (order) => inventoryService.reserve(order));
 bus.emit(Events.USER_CREATED, newUser);
 ```
 
+### Observer Variants — RxJS, Event Aggregator, and Beyond
+
+The basic Observer pattern has several powerful variants for different scales:
+
+**Event Aggregator — Centralized Event Hub:**
+
+```typescript
+// Event Aggregator = Observer + Mediator hybrid
+// One central hub for all events across the application
+class EventAggregator {
+  private handlers = new Map<string, Set<Function>>();
+
+  on(event: string, handler: Function): { off: () => void } {
+    if (!this.handlers.has(event)) this.handlers.set(event, new Set());
+    this.handlers.get(event)!.add(handler);
+    return { off: () => this.handlers.get(event)?.delete(handler) };
+  }
+
+  trigger(event: string, ...args: any[]) {
+    this.handlers.get(event)?.forEach(handler => handler(...args));
+  }
+}
+
+// Gmail-style example: multiple views react to one event
+const aggregator = new EventAggregator();
+aggregator.on('email:received', (email) => inboxView.addEmail(email));
+aggregator.on('email:received', (email) => unreadCounter.increment());
+aggregator.on('email:received', (email) => notificationPopup.show(email));
+aggregator.trigger('email:received', newEmail);
+```
+
+**RxJS-style Observable — Stream-Based Observer:**
+
+```typescript
+// Observable transforms Observer into a push-based stream with operators
+import { Subject, filter, map, debounceTime } from 'rxjs';
+
+// Stock ticker — real-time price updates
+const priceUpdates$ = new Subject<{ symbol: string; price: number }>();
+
+// Multiple subscribers with transformation operators
+priceUpdates$.pipe(
+  filter(update => update.symbol === 'AAPL'),
+  map(update => update.price),
+  debounceTime(500)  // don't update UI more than every 500ms
+).subscribe(price => {
+  stockWidget.updatePrice('AAPL', price);
+});
+
+// Publisher doesn't know about subscribers
+priceUpdates$.next({ symbol: 'AAPL', price: 185.50 });
+priceUpdates$.next({ symbol: 'GOOGL', price: 142.30 });
+```
+
+**PubSub vs Observer vs Event Aggregator:**
+
+| Feature | Observer | Event Aggregator | PubSub |
+|---------|----------|-----------------|--------|
+| Coupling | Subject knows observers exist | Hub decouples both sides | Fully decoupled via topics |
+| Scope | Within a module | Within an application | Cross-application / cross-service |
+| Type safety | Strong (interface) | Medium (event names) | Weak (string topics) |
+| Debugging | Easy (direct reference) | Medium (central hub) | Hard (no direct link) |
+
+**Ref:** `Data_Source/Addy Osmani/learning-jsdp-main/ch07/` — Observer variants (RxJS, Gmail, StockApp examples), Event Aggregator pattern
+
 ### When to Use Which
 
 | Scenario | Pattern | Why |
@@ -203,6 +268,8 @@ bus.emit(Events.USER_CREATED, newUser);
 | User action → needs undo/redo | Command | Reified, reversible |
 | Order placed → notify multiple systems | PubSub | Decoupled, cross-layer |
 | Service A needs data from Service B async | Request/Response | RPC-style over bus |
+| Multiple views react to one event | Event Aggregator | Centralized hub, app-wide |
+| Real-time stream with transformations | RxJS Observable | Stream operators, backpressure |
 
 ## TEAM Convention
 
@@ -220,7 +287,61 @@ bus.emit(Events.USER_CREATED, newUser);
 - `B05337_10/PubSub.ts` — CrowMailBus with Subscribe/Publish/Send (best in repo)
 - `B05337_10/RequestResponse.ts` — CrowMailRequestor/CrowMailResponder
 - `B05337_10/FanOutIn.ts` — Parallel dispatch with aggregated response
+- `Data_Source/Addy Osmani/learning-jsdp-main/ch07/` — Observer variants (RxJS, Event Aggregator, Gmail, StockApp)
 
 ## Next
 
 With communication patterns established, [Skill 08](08-state-management-and-business-logic.md) defines where business rules and domain state machines live.
+
+
+---
+
+## AI Agent Documentation Protocol
+
+When an AI Agent completes a development task using patterns from this skill, it **MUST** perform the following documentation steps:
+
+### 1. Pattern Annotation Comments
+
+Add a block comment at the top of each file where a pattern is applied:
+
+```typescript
+/**
+ * @pattern Observer
+ * @skill 07-inter-component-communication
+ * @description TypedEventBus for cross-layer event notification
+ * @see skills/07-inter-component-communication.md
+ */
+```
+
+### 2. Mermaid Architecture Diagram
+
+Generate a Mermaid class or sequence diagram showing how the implemented patterns interact:
+
+```mermaid
+classDiagram
+    class IService {
+        <<interface>>
+    }
+    class ConcreteService {
+        +execute()
+    }
+    class Decorator {
+        -inner: IService
+        +execute()
+    }
+    IService <|.. ConcreteService
+    IService <|.. Decorator
+    Decorator o-- IService
+```
+
+### 3. Pattern Registry Update
+
+If a `pattern-registry.md` exists in the project, append an entry:
+
+```markdown
+| Date | File(s) | Pattern | Skill | Rationale |
+|------|---------|---------|-------|-----------|
+| YYYY-MM-DD | src/services/user-service.ts | Decorator | 05 | Added logging without modifying business logic |
+```
+
+> These steps ensure every AI-generated code change is traceable to a design decision, making future modifications faster and cheaper for both humans and AI agents.

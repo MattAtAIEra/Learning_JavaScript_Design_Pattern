@@ -60,11 +60,11 @@ Zwei Szenarien:
 - **Ohne Spielregeln:** Du gibst dem Agenten eine Aufgabe. Er liefert etwas, das läuft. Jedes Mal anders. Technische Schulden häufen sich still und leise.
 - **Mit Spielregeln:** Du gibst dem Agenten eine Aufgabe — **samt Design-Pattern-Leitfaden**. Er liefert etwas, das läuft **und zur bestehenden Architektur passt**. Jedes Mal. Verlässlich.
 
-Die 13 Skill-Dateien in diesem Repo sind genau dieser Leitfaden.
+Die 15 Skill-Dateien in diesem Repo sind genau dieser Leitfaden.
 
 ## Was steckt drin
 
-13 Skill-Dateien, aufgebaut als **Schichtenarchitektur** — vom Fundament bis zur Team-Organisation:
+15 Skill-Dateien, aufgebaut als **Schichtenarchitektur** — vom Fundament bis zur Team-Organisation:
 
 ```mermaid
 block-beta
@@ -86,6 +86,10 @@ block-beta
   s10["10\nAsync &\nResilienz"]
   s11["11\nTest-\nstrategie"]
   space:5
+  s13["13\nReact-Komponenten-\nMuster"]
+  s14["14\nRendering &\nPerformance"]
+  space space space
+  space:5
   s12["12 Team- & Framework-Integration — Abschluss"]:5
 
   s00 --> s01
@@ -103,15 +107,21 @@ block-beta
   s06 --> s09
   s06 --> s10
   s06 --> s11
+  s09 --> s13
+  s09 --> s14
   s07 --> s12
   s08 --> s12
   s09 --> s12
   s10 --> s12
   s11 --> s12
+  s13 --> s12
+  s14 --> s12
 
   style s00 fill:#7c3aed,color:#fff,stroke:#7c3aed
   style s06 fill:#7c3aed,color:#fff,stroke:#7c3aed
   style s12 fill:#7c3aed,color:#fff,stroke:#7c3aed
+  style s13 fill:#2563eb,color:#fff,stroke:#2563eb
+  style s14 fill:#2563eb,color:#fff,stroke:#2563eb
 ```
 
 ## Schnellstart
@@ -126,11 +136,11 @@ Manche meinen, bei kurzen Code-Lebenszyklen und KI, die jederzeit alles neu schr
 
 Ein KI-Agent mit Design-Pattern-Wissen schreibt nicht einfach besseren Code. Er schreibt Code, **der seine eigenen künftigen Token-Kosten senkt** — weil strukturierter Code weniger Kontext braucht und sich mit weniger Aufwand ändern lässt. Das ist der eigentliche Return on Investment.
 
-**Die wenigsten Vibe-Coder kommen von selbst auf diese Erkenntnis. Aber mit 13 Skill-Dateien kann dein KI-Agent in Minuten verinnerlichen, wofür menschliche Entwickler Jahre brauchen — und es ab dem nächsten Commit anwenden.**
+**Die wenigsten Vibe-Coder kommen von selbst auf diese Erkenntnis. Aber mit 15 Skill-Dateien kann dein KI-Agent in Minuten verinnerlichen, wofür menschliche Entwickler Jahre brauchen — und es ab dem nächsten Commit anwenden.**
 
 ## Lizenz
 
-Die SKILL.MD-Inhalte sind eigenständige Originalarbeit. Code-Beispiele orientieren sich an *Mastering JavaScript Design Patterns, Second Edition* (Packt). Quellcode und PDFs des Buches sind nicht in diesem Repository enthalten.
+Die SKILL.MD-Inhalte sind eigenständige Originalarbeit. Code-Beispiele orientieren sich an *Mastering JavaScript Design Patterns, Second Edition* (Simon Timms, Packt) und *Learning JavaScript Design Patterns* (Addy Osmani, O'Reilly). Quellcode und PDFs der Bücher sind nicht in diesem Repository enthalten.
 
 ---
 

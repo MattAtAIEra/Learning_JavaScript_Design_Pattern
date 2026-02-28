@@ -113,11 +113,54 @@ const config = new HttpClientConfigBuilder()
   .build();
 ```
 
+### Constructor Pattern — Object.create() and Prototype Variants
+
+JavaScript offers multiple ways to create objects. Understanding the spectrum helps choose the right approach:
+
+```javascript
+// 1. Constructor function (classical)
+function User(name, role) {
+  this.name = name;
+  this.role = role;
+}
+User.prototype.greet = function() { return `I am ${this.name}`; };
+
+// 2. Object.create() — prototype-based creation without constructors
+const userProto = {
+  greet() { return `I am ${this.name}`; },
+  hasPermission(perm) { return this.permissions.includes(perm); }
+};
+
+const admin = Object.create(userProto);
+admin.name = 'Admin';
+admin.permissions = ['read', 'write', 'delete'];
+
+// 3. ES6 Class (syntactic sugar over prototypes)
+class User {
+  constructor(public name: string, public role: string) {}
+  greet() { return `I am ${this.name}`; }
+}
+
+// 4. Factory function (no new keyword needed)
+function createUser(name: string, role: string) {
+  return {
+    name,
+    role,
+    greet: () => `I am ${name}`,
+  };
+}
+```
+
+**Ref:** `Data_Source/Addy Osmani/learning-jsdp-main/ch07/` — Constructor pattern, Object.create(), Prototype variants
+
+**Guidance:** Prefer ES6 classes for domain entities ([Skill 08](08-state-management-and-business-logic.md)). Use factory functions when you need to hide implementation details or avoid `new`.
+
 ## TEAM Convention
 
 1. **No raw `new` for cross-layer dependencies.** If a class in `application/` needs something from `infrastructure/`, it receives it through constructor injection, not `new`.
 2. **Factory interfaces defined at layer boundaries.** The `domain/` layer defines `IDatabaseDriverFactory`; the `infrastructure/` layer implements it.
 3. **Singleton only for true global state.** Prefer DI container-managed singletons ([Skill 06](06-dependency-injection-and-ioc-container.md)) over static `getInstance()`.
+4. **Use factory functions for simple object creation** without class ceremony. Reserve classes for entities with behavior.
 
 ## References
 
@@ -127,7 +170,61 @@ const config = new HttpClientConfigBuilder()
 - `B05337_03/FactoryMethod.ts` — Factory method pattern
 - `B05337_03/Prototype.ts` — Prototype pattern
 - `B05337_06/LazyInstantiation.ts` — Deferred creation
+- `Data_Source/Addy Osmani/learning-jsdp-main/ch07/` — Constructor, Object.create(), Prototype variants
 
 ## Next
 
 With object creation controlled, [Skill 03](03-shared-utilities-and-functional-core.md) builds the shared utility layer that any part of the system can safely call.
+
+
+---
+
+## AI Agent Documentation Protocol
+
+When an AI Agent completes a development task using patterns from this skill, it **MUST** perform the following documentation steps:
+
+### 1. Pattern Annotation Comments
+
+Add a block comment at the top of each file where a pattern is applied:
+
+```typescript
+/**
+ * @pattern Observer
+ * @skill 07-inter-component-communication
+ * @description TypedEventBus for cross-layer event notification
+ * @see skills/07-inter-component-communication.md
+ */
+```
+
+### 2. Mermaid Architecture Diagram
+
+Generate a Mermaid class or sequence diagram showing how the implemented patterns interact:
+
+```mermaid
+classDiagram
+    class IService {
+        <<interface>>
+    }
+    class ConcreteService {
+        +execute()
+    }
+    class Decorator {
+        -inner: IService
+        +execute()
+    }
+    IService <|.. ConcreteService
+    IService <|.. Decorator
+    Decorator o-- IService
+```
+
+### 3. Pattern Registry Update
+
+If a `pattern-registry.md` exists in the project, append an entry:
+
+```markdown
+| Date | File(s) | Pattern | Skill | Rationale |
+|------|---------|---------|-------|-----------|
+| YYYY-MM-DD | src/services/user-service.ts | Decorator | 05 | Added logging without modifying business logic |
+```
+
+> These steps ensure every AI-generated code change is traceable to a design decision, making future modifications faster and cheaper for both humans and AI agents.
